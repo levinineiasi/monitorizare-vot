@@ -130,7 +130,6 @@ namespace VotingIrregularities.Api
 
                 c.AddSecurityRequirement(security);
 
-
                 c.OperationFilter<AddFileUploadParams>();
 
                 // Set the comments path for the Swagger JSON and UI.
@@ -169,6 +168,7 @@ namespace VotingIrregularities.Api
                     );
                 }
             );
+
             var jwtAppSettingOptions = Configuration.GetSection(nameof(JwtIssuerOptions));
             var tokenValidationParameters = new TokenValidationParameters
             {

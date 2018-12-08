@@ -13,7 +13,7 @@ using VotingIrregularities.Domain.Models;
 namespace VotingIrregularities.Api.Queries
 {
     public class FormularQueryHandler :
-        IAsyncRequestHandler<ModelFormular.VersiuneQuery,Dictionary<string,int>>,
+        IAsyncRequestHandler<ModelFormular.VersiuneQuery,IEnumerable<ModelVersiune>>,
         IAsyncRequestHandler<ModelFormular.IntrebariQuery,IEnumerable<ModelSectiune>>
     {
         private readonly VotingContext _context;
@@ -27,13 +27,21 @@ namespace VotingIrregularities.Api.Queries
             _cacheService = cacheService;
         }
 
-        public async Task<Dictionary<string, int>> Handle(ModelFormular.VersiuneQuery message)
+        public async Task<IEnumerable<ModelVersiune>> Handle(ModelFormular.VersiuneQuery message)
         {
             var result = await _context.VersiuneFormular
                 .AsNoTracking()
                 .ToListAsync();
 
-            return result.ToDictionary(k => k.CodFormular, v => v.VersiuneaCurenta);
+            return result
+                .Where(v => v.Data.Date == DateTime.Today)
+                .OrderBy(v => v.Ordine)
+                .Select(i => new ModelVersiune
+            {
+                Id = i.CodFormular,
+                VersiuneaCurenta = i.VersiuneaCurenta,
+                Nume = i.Nume
+            }).ToList();
         }
 
         public async Task<IEnumerable<ModelSectiune>> Handle(ModelFormular.IntrebariQuery message)
@@ -61,6 +69,7 @@ namespace VotingIrregularities.Api.Queries
                                      .OrderBy(intrebare => intrebare.CodIntrebare)
                                      .Select(a => _mapper.Map<ModelIntrebare>(a)).ToList()
                     }).ToList();
+
                     return result;
                 },
                 new DistributedCacheEntryOptions

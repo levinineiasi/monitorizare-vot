@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace VotingIrregularities.Api.Models
 {
     public class ModelVersiune
     {
-        public Dictionary<string,int> Versiune { get; set; }
+        public Guid Id { get; set; }
+        public int VersiuneaCurenta { get; set; }
+        public string Nume { get; set; }
     }
 }

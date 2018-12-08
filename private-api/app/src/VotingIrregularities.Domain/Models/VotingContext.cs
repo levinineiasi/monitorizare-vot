@@ -45,8 +45,7 @@ namespace VotingIrregularities.Domain.Models
                 entity.Property(e => e.IdIntrebare).ValueGeneratedNever();
 
                 entity.Property(e => e.CodFormular)
-                    .IsRequired()
-                    .HasMaxLength(2);
+                    .IsRequired();
 
                 entity.Property(e => e.TextIntrebare)
                     .IsRequired()
@@ -333,7 +332,7 @@ namespace VotingIrregularities.Domain.Models
                 entity.HasKey(e => e.CodFormular)
                     .HasName("PK_VersiuneFormular");
 
-                entity.Property(e => e.CodFormular).HasMaxLength(2);
+                entity.Property(e => e.CodFormular);
             });
         }
 

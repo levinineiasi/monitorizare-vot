@@ -12,7 +12,7 @@ namespace VotingIrregularities.Domain.Models
         }
 
         public int IdIntrebare { get; set; }
-        public string CodFormular { get; set; }
+        public Guid CodFormular { get; set; }
         public string CodIntrebare { get; set; }
         public int IdSectiune { get; set; }
         public int IdTipIntrebare { get; set; }
