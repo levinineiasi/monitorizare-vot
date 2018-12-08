@@ -2,9 +2,9 @@
 
 namespace VotingIrregularities.Api.Models
 {
-    public class ModelSectieQuery : IRequest<int>
+    public class SectionModelQuery : IRequest<int>
     {
-        public string CodJudet { get; set; }
-        public int NumarSectie { get; set; }
+        public string CountyCode { get; set; }
+        public int SectionNumber { get; set; }
     }
 }

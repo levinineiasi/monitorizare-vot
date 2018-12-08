@@ -85,7 +85,7 @@ namespace VotingIrregularities.Api
             services.AddAuthorization(options =>
             {
                 options.AddPolicy("AppUser",
-                                  policy => policy.RequireClaim("Organizatie", "Ong"));
+                                  policy => policy.RequireClaim("Organizatie", "Ngo"));
             });
 
             services.AddApplicationInsightsTelemetry(Configuration);
@@ -298,7 +298,7 @@ namespace VotingIrregularities.Api
 
         private void RegisterServices(IApplicationBuilder app)
         {
-            _container.Register<ISectieDeVotareService, SectieDevotareDBService>(Lifestyle.Scoped);
+            _container.Register<ISectieDeVotareService, VotingSectionDBService>(Lifestyle.Scoped);
             _container.RegisterSingleton(() => app.ApplicationServices.GetService<IOptions<JwtIssuerOptions>>());
             _container.RegisterSingleton<IHashService, HashService>();
         }
